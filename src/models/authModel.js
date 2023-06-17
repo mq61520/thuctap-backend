@@ -27,4 +27,30 @@ User.authentication = (loginname, loginpwd, result) => {
   );
 };
 
+User.add = (username, loginname, loginpwd, phone, address, status) => {
+  dbConn.query(
+    "select count(*) as exist from nguoi_dung where nd_loginname = ?",
+    loginname,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else if (result[0].exist > 0) {
+        console.log("UsernameAvailable");
+        status("UsernameAvailable");
+        return;
+      } else {
+        dbConn.query(
+          `insert into nguoi_dung(nd_id, nd_role, nd_hoten, nd_loginname, nd_loginpwd, nd_phonenumber, nd_address) 
+            values (null, '2', '${username}', '${loginname}', '${loginpwd}', '${phone}', '${address}')`,
+          (err) => {
+            if (err) {
+              console.log(err);
+            } else status("AddSuccess");
+          }
+        );
+      }
+    }
+  );
+};
+
 module.exports = User;

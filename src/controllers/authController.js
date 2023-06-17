@@ -11,3 +11,18 @@ exports.authentication = (req, res) => {
     res.send(result);
   });
 };
+
+exports.register = (req, res) => {
+  console.log(req.body);
+
+  User.add(
+    req.body.username,
+    req.body.loginname,
+    req.body.loginpwd,
+    req.body.phone,
+    req.body.address,
+    (result) => {
+      res.send(result);
+    }
+  );
+};
