@@ -38,6 +38,23 @@ Cart.insert_to_cart = (user_id, ma_sp, sl_sp, status) => {
   );
 };
 
+Cart.update_amount_in_cart = (gh_id, type, status) => {
+  var sql = "";
+  if (type == "increase") {
+    sql = `update gio_hang set gh_soluong = gh_soluong + 1 where gh_id = '${gh_id}'`;
+  } else if (type == "minus") {
+    sql = `update gio_hang set gh_soluong = gh_soluong - 1 where gh_id = '${gh_id}'`;
+  }
+
+  dbConn.query(sql, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      status("UpdateAmountSuccess");
+    }
+  });
+};
+
 Cart.select_amount_product = (user_id, result) => {
   dbConn.query(
     "select count(*) as amount from gio_hang where nd_id = ?",
@@ -52,6 +69,30 @@ Cart.select_amount_product = (user_id, result) => {
       }
     }
   );
+};
+
+Cart.select_product = (user_id, result) => {
+  dbConn.query(
+    "select * from gio_hang where nd_id = ?",
+    user_id,
+    (err, list) => {
+      if (err) {
+        console.log(err);
+      } else {
+        result(list);
+      }
+    }
+  );
+};
+
+Cart.delete = (gh_id, status) => {
+  dbConn.query(`delete from gio_hang where gh_id = '${gh_id}'`, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      status("DeleteSuccess");
+    }
+  });
 };
 
 module.exports = Cart;
