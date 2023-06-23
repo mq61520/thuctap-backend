@@ -26,3 +26,16 @@ exports.register = (req, res) => {
     }
   );
 };
+
+exports.change_phone_and_address = (req, res) => {
+  console.log(req.body.phone, req.body.address, req.body.user_id);
+
+  User.update_phone_and_address(
+    req.body.phone,
+    req.body.address,
+    req.body.user_id,
+    (result) => {
+      res.send(result);
+    }
+  );
+};

@@ -53,4 +53,17 @@ User.add = (username, loginname, loginpwd, phone, address, status) => {
   );
 };
 
+User.update_phone_and_address = (phone_number, address, user_id, status) => {
+  dbConn.query(
+    `update nguoi_dung set nd_phonenumber = '${phone_number}' , nd_address = '${address}' where nd_id = '${user_id}'`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        status("UpdateSuccess");
+      }
+    }
+  );
+};
+
 module.exports = User;
