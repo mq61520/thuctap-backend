@@ -19,7 +19,7 @@ Order.create_order = (
   status
 ) => {
   var dh_ma = "DH-" + Date.now();
-  var query_str = `insert into don_hang values(null, '${dh_ma}', '${user_id}', '${ngay_lap}', '${dia_chi}', '${sdt}', ${slsp}, ${tong_tien}, '${htgh}', '${httt}', '${ghi_chu}', 'Chờ lấy hàng');`;
+  var query_str = `insert into don_hang values(null, '${dh_ma}', '${user_id}', '${ngay_lap}', '${dia_chi}', '${sdt}', ${slsp}, ${tong_tien}, '${htgh}', '${httt}', '${ghi_chu}', 'Chờ xác nhận');`;
   //   console.log("model" + ds_sp[0].info.sp_ma);
 
   dbConn.query(query_str, (error) => {
@@ -83,6 +83,16 @@ Order.create_order = (
   });
 };
 
+Order.select_all_order = (result) => {
+  dbConn.query(`select * from don_hang`, (err, q_result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      result(q_result);
+    }
+  });
+};
+
 Order.select_order_by_user = (user_id, result) => {
   dbConn.query(
     `select * from don_hang where nd_id = '${user_id}'`,
@@ -109,7 +119,33 @@ Order.select_detail_order = (order_id, result) => {
   );
 };
 
-Order.update_order_status = (order_id, status) => {
+Order.confirm_order = (ma_dh, status) => {
+  dbConn.query(
+    `update don_hang set dh_trangthai = 'Chờ lấy hàng' where dh_ma ='${ma_dh}'`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        status("ConfirmSuccess");
+      }
+    }
+  );
+};
+
+Order.update_status_order = (ma_dh, trang_thai, status) => {
+  dbConn.query(
+    `update don_hang set dh_trangthai = '${trang_thai}' where dh_ma ='${ma_dh}'`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        status("UpdateStatusSuccess");
+      }
+    }
+  );
+};
+
+Order.cancel_order = (order_id, status) => {
   dbConn.query(
     `update don_hang set dh_trangthai = 'Đã hủy' where dh_ma ='${order_id}'`,
     (err) => {

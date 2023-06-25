@@ -33,6 +33,12 @@ exports.add_order = (req, res) => {
   );
 };
 
+exports.get_all_order = (req, res) => {
+  Order.select_all_order((result) => {
+    res.send(result);
+  });
+};
+
 exports.get_order_by_user = (req, res) => {
   Order.select_order_by_user(req.body.user_id, (result) => {
     res.send(result);
@@ -45,8 +51,20 @@ exports.get_detial_order = (req, res) => {
   });
 };
 
+exports.confirm_order = (req, res) => {
+  Order.confirm_order(req.params.ma_dh, (status) => {
+    res.send(status);
+  });
+};
+
+exports.update_status_order = (req, res) => {
+  Order.update_status_order(req.body.ma_dh, req.body.status, (status) => {
+    res.send(status);
+  });
+};
+
 exports.cancel_order = (req, res) => {
-  Order.update_order_status(req.params.dh_id, (result) => {
+  Order.cancel_order(req.params.dh_id, (result) => {
     res.send(result);
   });
 };
