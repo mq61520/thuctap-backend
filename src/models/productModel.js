@@ -40,7 +40,7 @@ Product.select_product_images_by_id = (ma_sp, result) => {
   );
 };
 
-Product.insert_product = (ma, anh_sp, ten, sl, gia, mota, status) => {
+Product.insert_product = (ma, anh_sp, ten, sl, gia, danhmuc, mota, status) => {
   dbConn.query(
     `select count(*) as exist from san_pham where sp_ma = '${ma}'`,
     (err, q_result) => {
@@ -51,7 +51,7 @@ Product.insert_product = (ma, anh_sp, ten, sl, gia, mota, status) => {
         return;
       } else {
         dbConn.query(
-          `insert into san_pham (sp_id, sp_ma, sp_image, sp_ten, sp_tonkho, sp_gia, sp_mota, sp_rate, sp_trangthai) values (null, "${ma}", "${anh_sp}", "${ten}", "${sl}", "${gia}", "${mota}", 0, 1)`,
+          `insert into san_pham (sp_id, sp_ma, sp_image, sp_ten, sp_tonkho, sp_gia, sp_danhmuc, sp_mota, sp_rate, sp_trangthai) values (null, "${ma}", "${anh_sp}", "${ten}", "${sl}", "${gia}", "${danhmuc}", "${mota}", 0, 1)`,
           (err) => {
             if (err) {
               console.log(err);

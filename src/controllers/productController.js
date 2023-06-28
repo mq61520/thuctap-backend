@@ -29,6 +29,7 @@ exports.add_product = (req, res) => {
     req.body.ten,
     req.body.sl,
     req.body.gia,
+    req.body.danhmuc,
     req.body.mota,
     (status) => {
       res.send(status);
