@@ -51,6 +51,20 @@ exports.update_status = (req, res) => {
   });
 };
 
+exports.update_promotion = (req, res) => {
+  console.log(req.body.value, req.body.batdau, req.body.ketthuc);
+
+  Product.update_promotion_product(
+    req.body.ma_sp,
+    req.body.value,
+    req.body.batdau,
+    req.body.ketthuc,
+    (result) => {
+      res.send(result);
+    }
+  );
+};
+
 exports.remove_product = (req, res) => {
   Product.delete_product(req.params.ma_sp, (result) => {
     res.send(result);

@@ -6,7 +6,7 @@ const Promotion = (promotion) => {
 
 Promotion.get_all_promotions = (result) => {
   dbConn.query(
-    "select km_id, km_giatri, DATE_FORMAT( CONVERT_TZ(km_ngaybatdau, '+00:00', '+07:00'), '%d/%m/%Y') as ngaybatdau, DATE_FORMAT( CONVERT_TZ(km_ngayketthuc, '+00:00', '+07:00'), '%d/%m/%Y') as ngayketthuc from khuyen_mai",
+    "select km_id, km_giatri, km_ngaybatdau as ngaybatdau, km_ngayketthuc as ngayketthuc from khuyen_mai",
     (err, q_result) => {
       if (err) {
         console.log(err);
@@ -19,7 +19,7 @@ Promotion.get_all_promotions = (result) => {
 
 Promotion.get_promotion_by_id = (km_id, result) => {
   dbConn.query(
-    `select km_id, km_giatri, DATE_FORMAT( CONVERT_TZ(km_ngaybatdau, '+00:00', '+07:00'), '%d/%m/%Y') as ngaybatdau, DATE_FORMAT( CONVERT_TZ(km_ngayketthuc, '+00:00', '+07:00'), '%d/%m/%Y') as ngayketthuc from khuyen_mai where km_id = '${km_id}'`,
+    `select km_id, km_giatri, km_ngaybatdau as ngaybatdau, km_ngayketthuc as ngayketthuc from khuyen_mai where km_id = '${km_id}'`,
     (err, q_result) => {
       if (err) {
         console.log(err);

@@ -93,6 +93,19 @@ Product.update_status_product = (ma_sp, new_status, status) => {
   );
 };
 
+Product.update_promotion_product = (ma_sp, value, batdau, ketthuc, status) => {
+  dbConn.query(
+    `update san_pham set sp_khuyenmai = '${value}', km_batdau = '${batdau}' , km_ketthuc = '${ketthuc}' where sp_ma = '${ma_sp}'`,
+    (err2) => {
+      if (err2) {
+        console.log(err2);
+      } else {
+        status("UpdatePromotionSuccess");
+      }
+    }
+  );
+};
+
 Product.delete_product = (ma_sp, status) => {
   dbConn.query(`delete from san_pham where sp_ma = '${ma_sp}'`, (err1) => {
     if (err1) {

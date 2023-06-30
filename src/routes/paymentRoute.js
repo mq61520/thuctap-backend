@@ -8,7 +8,7 @@ router.get("/order/all", paymentController.get_all_order);
 router.post("/order/user", paymentController.get_order_by_user);
 // router.post("/order/status", orderController.get_order_by_status);
 router.post("/order/add", paymentController.add_order);
-router.get("/order/cancel/:dh_id", paymentController.cancel_order);
+router.post("/order/cancel", paymentController.cancel_order);
 
 // //order - admin page
 // router.get("/order/status/:status", orderController.get_order_by_status_admin);

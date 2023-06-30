@@ -145,14 +145,25 @@ Order.update_status_order = (ma_dh, trang_thai, status) => {
   );
 };
 
-Order.cancel_order = (order_id, status) => {
+Order.cancel_order = (order_id, product_list, status) => {
   dbConn.query(
     `update don_hang set dh_trangthai = 'Đã hủy' where dh_ma ='${order_id}'`,
     (err) => {
       if (err) {
         console.log(err);
       } else {
-        status("UpdateStatusSuccess");
+        product_list.map((product) => {
+          dbConn.query(
+            `update san_pham set sp_tonkho = sp_tonkho + '${product.ctdh_sl}' where sp_ma = '${product.sp_ma}'`,
+            (err1) => {
+              if (err1) {
+                console.log(err1);
+              } else {
+                status("UpdateStatusSuccess");
+              }
+            }
+          );
+        });
       }
     }
   );

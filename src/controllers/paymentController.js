@@ -64,7 +64,9 @@ exports.update_status_order = (req, res) => {
 };
 
 exports.cancel_order = (req, res) => {
-  Order.cancel_order(req.params.dh_id, (result) => {
+  console.log(req.body.dh_id, req.body.list_prod);
+
+  Order.cancel_order(req.body.dh_id, req.body.list_prod, (result) => {
     res.send(result);
   });
 };

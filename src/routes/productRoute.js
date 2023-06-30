@@ -9,6 +9,7 @@ router.get("/product/:id", productController.get_product_by_id);
 router.get("/product/images/:id", productController.get_product_images_by_id);
 router.get("/product/delete/:ma_sp", productController.remove_product);
 router.post("/product/status", productController.update_status);
+router.post("/product/promotion/update", productController.update_promotion);
 router.post("/product/add", productController.add_product);
 router.post(
   "/product/product_images",
