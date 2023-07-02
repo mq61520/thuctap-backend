@@ -14,6 +14,14 @@ exports.get_product_by_id = (req, res) => {
   });
 };
 
+exports.get_product_by_brand = (req, res) => {
+  // console.log(req.params.id);
+
+  Product.select_product_by_brand(req.params.brand, (result) => {
+    res.send(result);
+  });
+};
+
 exports.get_product_images_by_id = (req, res) => {
   Product.select_product_images_by_id(req.params.id, (result) => {
     res.send(result);

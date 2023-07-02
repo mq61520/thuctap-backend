@@ -27,6 +27,19 @@ Product.select_product_by_id = (ma_sp, result) => {
   );
 };
 
+Product.select_product_by_brand = (dm, result) => {
+  dbConn.query(
+    `select * from san_pham where sp_danhmuc = '${dm}'`,
+    (err, queryRes) => {
+      if (err) {
+        console.log(err);
+      } else {
+        result(queryRes);
+      }
+    }
+  );
+};
+
 Product.select_product_images_by_id = (ma_sp, result) => {
   dbConn.query(
     `select * from hinh_anh where sp_id = '${ma_sp}'`,

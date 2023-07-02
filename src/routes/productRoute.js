@@ -6,6 +6,7 @@ const productController = require("../controllers/productController");
 
 router.get("/product/all", productController.get_all_product);
 router.get("/product/:id", productController.get_product_by_id);
+router.get("/product/brand/:brand", productController.get_product_by_brand);
 router.get("/product/images/:id", productController.get_product_images_by_id);
 router.get("/product/delete/:ma_sp", productController.remove_product);
 router.post("/product/status", productController.update_status);
