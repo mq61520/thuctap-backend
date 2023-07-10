@@ -17,5 +17,11 @@ router.post(
   uploadProductImage.array("product_images", 12),
   productController.add_product_images
 );
+router.post("/product/update", productController.update_product);
+router.post(
+  "/product/update/images",
+  uploadProductImage.array("product_images", 6),
+  productController.update_product_images
+);
 
 module.exports = router;

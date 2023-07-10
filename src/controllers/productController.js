@@ -78,3 +78,27 @@ exports.remove_product = (req, res) => {
     res.send(result);
   });
 };
+
+exports.update_product = (req, res) => {
+  console.log(req.body);
+
+  Product.update_product(
+    req.body.ma_sp,
+    req.body.anh_sp,
+    req.body.ten,
+    req.body.gia,
+    req.body.danhmuc,
+    req.body.mota,
+    (status) => {
+      res.send(status);
+    }
+  );
+};
+
+exports.update_product_images = (req, res) => {
+  console.log(req.files[0].originalname);
+
+  Product.update_image(req.files[0].originalname, req.body.ma_sp, (result) => {
+    res.send(result);
+  });
+};

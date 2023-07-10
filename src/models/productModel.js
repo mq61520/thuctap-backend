@@ -135,4 +135,32 @@ Product.delete_product = (ma_sp, status) => {
   });
 };
 
+Product.update_product = (ma, anh_sp, ten, gia, danhmuc, mota, status) => {
+  dbConn.query(
+    `update san_pham set sp_image="${anh_sp}", sp_ten="${ten}",  sp_gia="${gia}", sp_danhmuc="${danhmuc}", sp_mota= "${mota}" where sp_ma = "${ma}"`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        status("UpdateProductFail");
+      } else {
+        status("UpdateProductSuccess");
+      }
+    }
+  );
+};
+
+Product.update_image = (image, ma_sp, status) => {
+  dbConn.query(
+    `insert into hinh_anh(ha_id, ha_ten, sp_id) values (null, "${image}", "${ma_sp}")`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        status("UpdateImgFail");
+      } else {
+        status("UpdateImgSuccess");
+      }
+    }
+  );
+};
+
 module.exports = Product;
